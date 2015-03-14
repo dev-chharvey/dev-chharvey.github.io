@@ -1,5 +1,5 @@
 // out: home.css
-@import (reference) url('../core/styles/all.less');
+@import (reference) url('../core/styles/project.less');
 
 /*#############*\
     home.less
@@ -16,9 +16,12 @@
 //+++++++++++//
 .Spiral {
   position: relative;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
 }
-.Square {
-  @trans_square: @t_ani_long;
+a.Square {
+  @trans_square: @project_ani_long;
   .transition(background-color; @trans_square);
   display: block;
   height: 3em; // will be changed proportionally in JS
@@ -27,22 +30,24 @@
   background-color: @color_crumb_up_bg;
   background-image: url('images/circle.svg');
   background-size: 200%;
+  opacity: inherit;
   .Text {
     .transition(box-shadow,text-shadow,color,background-color; @trans_square);
     display: block;
     position: relative;
     top: 0.5em; // will be changed proportionally in JS
     border-radius: 0; // will be changed proportionally in JS
-    font-family: @fontfam_heading;
+    font-family: @project_font_family_heading;
     text-align: center;
     text-shadow: 2px 2px 10px;
   }
 }
-.Square:hover {
+a.Square:hover {
+  text-decoration: none;
   color: @color_crumb_dn_txt;
   background-color: @color_crumb_dn_bg;
   .Text {
-    @bgcolor: fadeout(@color_base_bg, @golden1);
+    @bgcolor: fadeout(@project_color_bg, 60%);
     box-shadow: 0px 0px 20px 20px @bgcolor;
     background-color: @bgcolor;
   }
@@ -65,6 +70,74 @@
 .Spiral > :nth-child(10) > .Square {.q2(); width: @golden10;}
 .Spiral > :nth-child(11) > .Square {.q3(); width: @golden11;}
 .Spiral > :nth-child(12) > .Square {.q4(); width: @golden12;}
+
+@media print {
+  // mobile device styles:
+  .Spiral {
+    width: 100%;
+    position: static;
+  }
+  .Square{
+    width: 100%;
+    height: 4em;
+    position: static;
+    background-image: none;
+    color: @color_crumb_up_txt;
+  }
+}
+
+.js-bubbles {
+  circle {
+    stroke-width: 2px;
+  }
+  text {
+    text-anchor: middle;
+    font-family: @project_font_family_heading;
+
+  }
+  &.dark {
+    background-color: @solarized_base03;
+    circle {
+      stroke: @solarized_base1;
+    }
+    text {
+      fill: @solarized_base2;
+    }
+  }
+  &.lite {
+    background-color: @solarized_base3;
+    circle {
+      stroke: @solarized_base01;
+    }
+    text {
+      fill: @solarized_base02;
+    }
+  }
+}
+.js-main-links {
+  text {
+    font-size: 30px;
+  }
+}
+.js-side-links {
+  text {
+    font-size: 20px;
+  }
+}
+
+.js-mth circle {fill: @solarized_orange;}
+.js-web circle {fill: @solarized_green;}
+.js-edu circle {fill: @solarized_magenta;}
+.js-mus circle {fill: @solarized_yellow;}
+.js-swm circle {fill: @solarized_blue;}
+.js-abt circle {fill: @solarized_cyan;}
+.js-res circle {fill: @solarized_violet;}
+.js-cpr circle {fill: @solarized_red;}
+.center circle {
+  fill: transparent;
+  stroke-width: 1px;
+  stroke-dasharray: 1,4;
+}
 //++++ @end INDEX PAGE ++++//
 
 
@@ -93,13 +166,15 @@
   background-repeat: no-repeat;
   .translucent();
   overflow: hidden;
+  &:hover {
+    color: transparent;
+  }
 }
 /**
   * This Object represents a list of icons.
 @implements
-: .list-block()
 : .margin-even
-: .vru-top()
+: .spacing-top()
 @tags
 : #typography
 : #list
@@ -111,11 +186,10 @@
 @iconsize: 64px;
 @iconpadd: 10px;
 .Iconlist {
-  .list-block();
-  .margin-even;
-  .vru-top(1);
-  text-align: center;
-  .Item {display: inline;}
+  .flex-container;
+  .justify-content(space-around);
+  padding-left: 0;
+  list-style-type: none;
 }
 
 /**
@@ -129,7 +203,7 @@
   */
 @contacticonsize: 64px;
 @contacticonpadd: 10px;
-.Icon--Ct {
+a.Icon--Ct {
   .icon(@contacticonsize; url('images/contact-sprite.png'));
 }
 .Icon--Ct.Mapss {.sprite(1; @contacticonsize; @contacticonpadd);}
@@ -151,7 +225,7 @@
 : 2014-09-25
   */
 @appiconsize: 72px;
-.Icon--Ap {
+a.Icon--Ap {
   .icon(@appiconsize; url());
   background-size: contain;
   background-position: center center;
@@ -172,8 +246,8 @@
 : 2015-01-08
   */
 .Ulist.Ack {
-  .fontsize-block-sml();
-  padding-left: (@listindent / 2);
+  .font-size-block(@project_font_size_sml; @project_line_height);
+  padding-left: 2rem;
 }
 
 /**
@@ -183,16 +257,16 @@
 @updated
 : 2014-06-16
   */
-.Capt.Capt-logo {
+.Capt-logo {
   padding-right: 96px;
   background-position: right center;
   background-repeat: no-repeat;
   background-size: 72px auto;
 }
-.Capt.Capt-logo.Nctm {background-image: url('images/logos-banners/logo-NCTM.png');}
-.Capt.Capt-logo.Vctm {background-image: url('images/logos-banners/logo-VCTM.png');}
-.Capt.Capt-logo.Txin {background-image: url('images/logos-banners/logo-TI.png');}
-.Capt.Capt-logo.Vdoe {background-image: url('images/logos-banners/logo-VA-DOE.png');}
-.Capt.Capt-logo.Amsy {background-image: url('images/logos-banners/logo-AMS.png');}
-.Capt.Capt-logo.Vmta {background-image: url('images/logos-banners/logo-VMTA.png');}
+.Capt-logo.Nctm {background-image: url('images/logos-banners/logo-NCTM.png');}
+.Capt-logo.Vctm {background-image: url('images/logos-banners/logo-VCTM.png');}
+.Capt-logo.Txin {background-image: url('images/logos-banners/logo-TI.png');}
+.Capt-logo.Vdoe {background-image: url('images/logos-banners/logo-VA-DOE.png');}
+.Capt-logo.Amsy {background-image: url('images/logos-banners/logo-AMS.png');}
+.Capt-logo.Vmta {background-image: url('images/logos-banners/logo-VMTA.png');}
 //++++ @end OTHER PAGES ++++//
