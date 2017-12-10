@@ -1,13 +1,14 @@
-doctype html
-html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
-  head
-    title Typsetting Math in Moodle
-    meta(charset="utf-8")
-    meta(name="author" content="Christopher H. Harvey")
-    meta(name="description" content="A tutorial for inputting mathematical expressions into the Moodle system.")
-    meta(name="keywords" content="math expressions, math equations")
-    meta(name="viewport" content="width=device-width, initial-scale=1")
-    link(rel="stylesheet" href="../styles/chharvey.css")
+extends _blog.tpl.jade
+
+block append vars
+  - var page = Home.BLOG.find('math-moodle.html').status(BlogPost.Status.RELEASED)
+  -
+    page.addTimestamp(new Date('2013-02-18'), [BlogPost.Status.COMPLETE])
+    page.addTimestamp(new Date('2013-08-25 21:56'))
+    page.addTimestamp(new Date('2014-10-22 12:42'), [BlogPost.Status.RELEASED])
+    page.addTimestamp(new Date('2014-11-23 22:39'))
+
+block append styles
     style.
       .c-HeadWithSub {
         text-align: center;
@@ -23,60 +24,21 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
         margin-top: -1px;
         border-bottom-style: solid;
       }
-  body.o-GoldenContainer
-    main.o-GoldenContainer__Content.c-Document(data-status="released" itemscope="" itemtype="https://schema.org/Article")
-      header
-        h1(itemprop="name headline") Typesetting Math in Moodle
-        p.o-GoldenContainer__Content__SideMinor.o-Box.o-Box--island.c-Alert.c-Alert--skss.
-          This document is ready for implemen&shy;tation.
-        dl.c-Document__Meta
-          dt Author
-          dd(itemprop="author") Christopher H. Harvey
-          dt Description
-          dd(itemprop="description") A tutorial for inputting mathematical expressions into the Moodle system.
-          dt Keywords
-          dd(itemprop="keywords") math expressions
-          dd(itemprop="keywords") math equations
-          dt Version History
-          dd.update(itemprop="dateCreated")
-            time(datetime="2013-02-18") Feb 18, 2013
-            span.o-Textbox.c-Label.c-Label--cshn(class="!ml:1") Completed
+
+block docmeta
           dd.update
-            time(datetime="2013-08-25 21:56") Aug 25, 2013 #[span.tod  9:56 PM]
-          dd.update(itemprop="datePublished")
-            time(datetime="2014-10-22 12:42") Oct 22, 2014 #[span.tod 12:42 PM]
-            span.o-Textbox.c-Label.c-Label--skss(class="!ml:1") Released
-          dd.update(itemprop="dateModified")
-            time(datetime="2014-11-23 22:39") Nov 23, 2014 #[span.tod 10:39 PM]
-            span.o-Textbox.c-Label.c-Label--dang(class="!ml:1") Latest
-        //  nav.
-        //    h2 Table of Contents
-        //    ol.TOC
-        //      li:a(href="#intro") Introduction: Your First Equation by Hand
-        //      li:a(href="#modes") Equation Modes
-        //      li
-        //        a(href="#placement") Placement of Symbols
-        //        ol
-        //          li:a(href="#supsub") Superscripts and Subscripts
-        //          li:a(href="#frac") Fraction Bars
-        //          li:a(href="#sqrt") Square Roots
-        //          li
-        //            a(href="#delimeters") Parentheses and other Delimiters
-        //            ol
-        //              li:a(href="#parens") Parentheses
-        //              li:a(href="#brackets") Absolute Value, Square Brackets
-        //              li:a(href="#braces") Curly Braces
-        //      li
-        //        a(href="#special-chars") Special Characters
-        //        ol
-        //          li:a(href="#vars") Values and Variables
-        //          li:a(href="#operations") Binary Operations
-        //          li:a(href="#relations") Binary Relations
-        //      li:a(href="#more-oper") More Operators
-        //      li
-        //        a(href="#conclusion") Conclusion
-        //        ol
-        //          li:a(href="#more-info") More Information
+            time(datetime="2013-02-18" itemprop="dateCreated") Feb 18, 2013
+            span.o-Textbox.c-Label.c-Label--cshn.-ml-1 Completed
+          dd.update: time(datetime="2013-08-25 21:56") Aug 25, 2013 #[span.tod  9:56 PM]
+          dd.update
+            time(datetime="2014-10-22 12:42" itemprop="datePublished") Oct 22, 2014 #[span.tod 12:42 PM]
+            span.o-Textbox.c-Label.c-Label--skss.-ml-1 Released
+          dd.update
+            time(datetime="2014-11-23 22:39" itemprop="dateModified") Nov 23, 2014 #[span.tod 10:39 PM]
+            span.o-Textbox.c-Label.c-Label--dang.-ml-1 Latest
+
+block append main
+    div
       p.c-Lede.c-Lede--dropcap.
         You may already know how to use #[b MathType] (or #[b Equation Editor]) to put
         equations in Moodle. But if you don&rsquo;t have those programs installed on your personal computer,
@@ -96,7 +58,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           dollar signs on each side. For example, to display #[span.js-mt 2x+3=7], you
           would need to type #[code $$2x+3=7$$] anywhere in the text box on
           Moodle. Try it for yourself:
-        figure(class="!ta:c")
+        figure.-ta-c
           img(src="images/moodle-inline.png" alt="A screenshot of a dialog box in Moodle with LaTeX input.")
         p.c-Document__Informative(data-informative="").
           The reason you need to surround the #[span.js-mt \LaTeX] code with
@@ -133,7 +95,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           you don&rsquo;t have to memorize any special codes to activate Inline versus Block mode. In order
           to show an equation in Block Mode, you&rsquo;ll have to put the equation on its own line and center
           it yourself (like how you would do in #[b Word]).
-        figure(class="!ta:c")
+        figure.-ta-c
           img(src="images/moodle-block.png" alt="A screenshot of a dialog box in Moodle with LaTeX input.")
       section#placement
         h2 Placement of Symbols
@@ -143,54 +105,54 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           p.
             To enter a superscript for powers or exponents, simply place the exponent in
             curly braces following a caret symbol:
-          dl.o-FlexContainer
-            dt: code $$a^{2} + b^{2} = c^{2}$$
-            dd: span.js-mt a^{2} + b^{2} = c^{2}
+          dl.o-Flex
+            dt.o-Flex__Item: code $$a^{2} + b^{2} = c^{2}$$
+            dd.o-Flex__Item: span.js-mt a^{2} + b^{2} = c^{2}
           p.
             To enter a subscript, place the subscript in curly braces following an
             underscore:
-          dl.o-FlexContainer
-            dt: code $$a_{n} = a_{n-1} + d$$
-            dd: span.js-mt a_{n} = a_{n-1} + d
+          dl.o-Flex
+            dt.o-Flex__Item: code $$a_{n} = a_{n-1} + d$$
+            dd.o-Flex__Item: span.js-mt a_{n} = a_{n-1} + d
         section#frac
           h3 Fraction Bars
           p.
             This one is a little more complicated. To enter a fraction, you need to start
             with the command #[code \frac] (notice the backslash), and then enter
             the arguments in curly braces. There are two arguments: the numerator and the denominator.
-          dl.o-FlexContainer
-            dt: code $$\frac{-b}{2a}$$
-            dd: span.js-mt \dfrac{-b}{2a}
+          dl.o-Flex
+            dt.o-Flex__Item: code $$\frac{-b}{2a}$$
+            dd.o-Flex__Item: span.js-mt \dfrac{-b}{2a}
         section#sqrt
           h3 Square Roots
           p.
             The square root command is almost like the fraction command, but it has one
             argument instead of two. The command is #[code \sqrt], and your
             argument should go in curly braces.
-          dl.o-FlexContainer
-            dt: code $$\sqrt{2}$$
-            dd: span.js-mt \sqrt{2}
+          dl.o-Flex
+            dt.o-Flex__Item: code $$\sqrt{2}$$
+            dd.o-Flex__Item: span.js-mt \sqrt{2}
         section#delimeters
           h3 Parentheses and other Delimiters
           p.
             Sometimes, you may want to put parentheses and other delimiters (absolute
-            value, square brackets, curly braces, #[i(lang="la"): abbr(title="et cetera") etc.])
+            value, square brackets, curly braces, #[+etc()])
             around an expression or equation. There are many ways to do this, but we&rsquo;ll just cover the
             basics.
           section#parens
             h4 Parentheses
             p To enter parentheses the easy way, just type them in on your keyboard:
-            dl.o-FlexContainer
-              dt: code $$f(y) = 2(y^{2}+1)$$
-              dd: span.js-mt f(y) = 2(y^{2}+1)
+            dl.o-Flex
+              dt.o-Flex__Item: code $$f(y) = 2(y^{2}+1)$$
+              dd.o-Flex__Item: span.js-mt f(y) = 2(y^{2}+1)
             p.
               The parentheses aren&rsquo;t terrible, but since the #[i: span.js-mt y] hangs down a
               little bit, and we have a superscript, we might want to make our parentheses a little bit
               taller so that they&rsquo;ll fit their contents. To do this, we have to use the commands
               #[code \left] and #[code \right] before each parenthesis:
-            dl.o-FlexContainer
-              dt: code $$f \left( y \right) = 2 \left( y^{2}+1 \right) $$
-              dd: span.js-mt f\left(y\right) = 2\left(y^{2}+1\right)
+            dl.o-Flex
+              dt.o-Flex__Item: code $$f \left( y \right) = 2 \left( y^{2}+1 \right) $$
+              dd.o-Flex__Item: span.js-mt f\left(y\right) = 2\left(y^{2}+1\right)
             p.
               It&rsquo;s a little more typing to do, but it makes all the difference. And you
               will want to use these commands to go from this:
@@ -206,11 +168,11 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               For the absolute value symbol, use the #[kbd: kbd.o-Textbox.c-Key bar] key above
               the #[kbd: kbd.o-Textbox.c-Key enter] key on your keyboard. (It&rsquo;s
               #[kbd #[kbd.o-Textbox.c-Key shift] + #[kbd.o-Textbox.c-Key backslash]].)
-            dl.o-FlexContainer.
-              #[dt.a-w-p2c: code $$ |x+2|^{2}+3 $$]               #[dd.a-w-p2: span.js-mt |x+2|^{2}+3]
-              #[dt.a-w-p2c: code $$ \left|x+2\right|^{2}+3 $$]    #[dd.a-w-p2: span.js-mt \left|x+2\right|^{2}+3]
-              #[dt.a-w-p2c: code $$ [x^{2}+6x+9]-9 $$]            #[dd.a-w-p2: span.js-mt [x^{2}+6x+9]-9]
-              #[dt.a-w-p2c: code $$ \left[x^{2}+6x+9\right]-9 $$] #[dd.a-w-p2: span.js-mt \left[x^{2}+6x+9\right]-9]
+            dl.o-Flex.
+              #[dt.o-Flex__Item.a-w-p2c: code $$ |x+2|^{2}+3 $$]               #[dd.o-Flex__Item.a-w-p2: span.js-mt |x+2|^{2}+3]
+              #[dt.o-Flex__Item.a-w-p2c: code $$ \left|x+2\right|^{2}+3 $$]    #[dd.o-Flex__Item.a-w-p2: span.js-mt \left|x+2\right|^{2}+3]
+              #[dt.o-Flex__Item.a-w-p2c: code $$ [x^{2}+6x+9]-9 $$]            #[dd.o-Flex__Item.a-w-p2: span.js-mt [x^{2}+6x+9]-9]
+              #[dt.o-Flex__Item.a-w-p2c: code $$ \left[x^{2}+6x+9\right]-9 $$] #[dd.o-Flex__Item.a-w-p2: span.js-mt \left[x^{2}+6x+9\right]-9]
           section#braces
             h4 Curly Braces
             p.
@@ -223,16 +185,16 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             p.
               Again, if we want to stretch the braces to fit their contents, we have to
               add the #[code \left] and #[code \right] commands:
-            dl.o-FlexContainer
-              dt: code $$ \left\{ 4,2,1,\frac{1}{2},\dots \right\} $$
-              dd: span.js-mt \left\{4,2,1,\dfrac{1}{2},\dots\right\}
+            dl.o-Flex
+              dt.o-Flex__Item: code $$ \left\{ 4,2,1,\frac{1}{2},\dots \right\} $$
+              dd.o-Flex__Item: span.js-mt \left\{4,2,1,\dfrac{1}{2},\dots\right\}
       section#special-chars
         h2 Special Characters
         p.
           This section covers the common characters we use in everyday high school math.
           Since they won&rsquo;t always be found on your keyboard, there are #[span.js-mt \LaTeX]
           commands for each of them.
-        table.c-TableShaded.c-TableShadedRows.c-TableHover(class="!w:1o1 !ta:c")
+        table.c-TableShaded.c-TableShadedRows.c-TableHover.-w-1o1.-ta-c
           thead
             tr
               th.o-Box(scope="col") Symbol Name
@@ -358,7 +320,7 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
               td derivative
               td: code $$ \frac{d}{dx} $$
               td: span.js-mt \frac{d}{dx}
-        p.o-Box.o-Box--island.c-Alert.c-Alert--help.
+        p.o-Box.c-Alert.c-Alert--help.
           For a complete list of Greek letters and other symbols,
           #[a.c-Alert__Link(href="images/LaTeX_Greek_letters.pdf") download this PDF].
           Or you can check out a #[a.c-Alert__Link(href="html-entities.html") bigger table]!
@@ -368,16 +330,16 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           Below are the three most common #[i large operators] used in high school math:
           the limit, the integral, and the summation. The best explanation is by example.
           #[ins(datetime="2014-11-23") The first column shows Inline Mode and the second column shows Block Mode.]
-        dl.o-FlexContainer
-          dt(class="!w:3o5"): code $$ \lim_{x \to -\infty} e^{x} $$
-          dd(class="!w:1o5"): span.js-mt \lim_{x \to -\infty} e^{x}
-          dd(class="!w:1o5"): span.js-mb \lim_{x \to -\infty} e^{x}
-          dt(class="!w:3o5"): code $$ \int_{1}^{e} \frac{1}{x}\ dx $$
-          dd(class="!w:1o5"): span.js-mt \int_{1}^{e} \dfrac{1}{x}\ dx
-          dd(class="!w:1o5"): span.js-mb \int_{1}^{e} \dfrac{1}{x}\ dx
-          dt(class="!w:3o5"): code $$ \sum_{n=1}^{\infty} \frac{1}{ n^{2} } $$
-          dd(class="!w:1o5"): span.js-mt \sum_{n=1}^{\infty}\frac{1}{n^{2}}
-          dd(class="!w:1o5"): span.js-mb \sum_{n=1}^{\infty}\frac{1}{n^{2}}
+        dl.o-Flex
+          dt.o-Flex__Item.-w-3o5: code $$ \lim_{x \to -\infty} e^{x} $$
+          dd.o-Flex__Item.-w-1o5: span.js-mt \lim_{x \to -\infty} e^{x}
+          dd.o-Flex__Item.-w-1o5: span.js-mb \lim_{x \to -\infty} e^{x}
+          dt.o-Flex__Item.-w-3o5: code $$ \int_{1}^{e} \frac{1}{x}\ dx $$
+          dd.o-Flex__Item.-w-1o5: span.js-mt \int_{1}^{e} \dfrac{1}{x}\ dx
+          dd.o-Flex__Item.-w-1o5: span.js-mb \int_{1}^{e} \dfrac{1}{x}\ dx
+          dt.o-Flex__Item.-w-3o5: code $$ \sum_{n=1}^{\infty} \frac{1}{ n^{2} } $$
+          dd.o-Flex__Item.-w-1o5: span.js-mt \sum_{n=1}^{\infty}\frac{1}{n^{2}}
+          dd.o-Flex__Item.-w-1o5: span.js-mb \sum_{n=1}^{\infty}\frac{1}{n^{2}}
       section#conclusion
         h2 Conclusion
         p.
@@ -397,6 +359,6 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
             is a language, originally developed by Leslie Lamport, used to typeset and mark up documents.
             It is a very common (perhaps the most common) system used by authors of professional math
             journals.
-    script(src="../bower_components/jquery/dist/jquery.js")
-    script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
-    script(src="../core/scripts/global.js")
+
+block append scripts
+  script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")

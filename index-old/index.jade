@@ -7,10 +7,11 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
     meta(name="description" content="Home page of Christopher H. Harvey of Fairfax, VA.")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     link(rel="icon" href="../core/images/favicon.ico")
-    link(rel="stylesheet" href="../styles/chharvey.css")
+    link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/xmeter/v6.1.1/css/xmeter.css")
+    link(rel="stylesheet" href="https://cdn.rawgit.com/chharvey/still-alive/v1.4.0/css/still-alive.css")
     link(rel="stylesheet" href="landing.css")
   body.o-GoldenContainer
-    main.o-GoldenContainer__Content(class="!mb:0")
+    main.o-GoldenContainer__Content.-mb-0
       nav
         ul.c-Spiral
           li: a.c-Square(rel="child" href="../home/about.html"): h1.c-Square__Text Chris Harvey
@@ -26,9 +27,8 @@ html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
           li: a.c-Square
           li: a.c-Square
         a.c-Square.c-Square--dev(href="https://dev-chharvey.github.io/"): span.c-Square__Text dev site
-    script(src="../bower_components/jquery/dist/jquery.js")
+    script(src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous")
     script(src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,https://chharvey.github.io/chhlib/mathjax-localconfig.js")
     script(src="http://d3js.org/d3.v3.min.js")
-    script(src="../core/scripts/Util.js")
-    script(src="../core/scripts/global.js")
+    script(src="../core/scripts/util.js")
     script(src="fibonaccispiral.js")
